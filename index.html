@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Curso NodeJs by theHazzard</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">   
+      <header>
+        <h1>Curso NodeJs</h1>
+        <p>repositorio del curso empezado por @antoniopol</p>
+
+        <p class="view"><a href="https://github.com/theHazzard/cursox">View the Project on GitHub <small>theHazzard/cursox</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/theHazzard/cursox/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/theHazzard/cursox/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/theHazzard/cursox">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+      <nav>
+        <ul>
+          <li><a href="#whatIsNode">Intro!</a></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </nav>
+        <h3 id="whatIsNode">Node.js</h3>
+
+        <p>
+          Node.js te permite correr javascript del lado del servidor, es decir, utilizando el motor V8 de google permite correr javascript fuera del navegador, que es como comunmente era utilizado, node.js es un conjunto de librerias y funciones que corren sobre este motor de google
+        </p>
+        <h3>Callback functions</h3>
+        <p>
+          lo que mas me a costado entender, es el manejo que tiene javascript de las funciones, javascript es un lenguaje funcional, y maneja las funciones como uno de sus objetos mas importantes, las funciones de callback, son enviadas como parametros a otras funciones, para ser llamadas desde dentro de las mismas
+        </p>
+        <p>
+          voy a dar un ejemplo simple de callback para que se entienda bien su funcionamiento:
+        </p>
+
+        <pre>
+          <code>
+var suma = function(a,b,callback){
+  var resutlado = a + b;
+  callback(resultado);
+};
+
+suma(5,4,function(res){
+  console.log(res);
+});
+          </code>
+        </pre>
+        <p>
+          En el codigo anterior podemos ver que declaramos la funcion suma, la cual recibe 3 parametros, los 2 valores, y callback.
+          Mas abajo vemos que llamamos a esta funcion para que realize la suma, y le pasamos una funcion declarada en la misma lista de parametros, la cual recibe un valor en "res" y lo imprime en consola.
+          Entonces, que sucede? bien, dentro de suma realizamos la suma y le pasamos el resultado a callback, que es la funcion que le pasamos como parametro, la cual es llamada y imprime lindo y bonito el resultado.       
+        </p>
+        
+        <h3>NPM</h3>
+        <p>Node consta con un instalador de paquetes, el cual te permite installarlos de manera local en tu proyecto:</p>
+        <pre><code>
+npm install express
+        </code></pre>
+        <p>o de manera global:</p>
+        <pre><code>
+npm install -g express
+        </code></pre>
+        <p>de que me sirve una o la otra? bueno, algunos paquetes como el del ejemplo traen funciones que pueden ser llamadas al instalarlos de manera global, en el ejemplo, express puede ser llamado para crear una estructura basica de tu sitio, de esta manera</p>
+        <pre><code>
+express MiSitio -s -c stylus
+        </code></pre>
+        <p>en este ejemplo estamos creando un proyecto llamado MiSitio, este comando recibe parametros tambien, -s le dice que configure express para utilizar sesiones, y -c le dice que vamos a utilizar el motor stylus para el codigo css</p>
+        <p>esto nos genera la configuracion basica para tener corriendo un proyecto en express, como el package.json, algunas vistas y tambien rutas</p>
+        
+        <h3>Socket.io</h3>
+        <h4>Que es socket.io?</h4>
+        <p>Socket.io es una libreria que apunta a crear aplicaciones realtime sin tener que preocuparte por el mecanismo de transporte de datos, o de el dispositivo final donde se corra tu aplicacion</p>
+        <h4>Todo muy lindo pero... mecanismos de transporte?</h4>
+        <p>El mecanismo de transporte es el metodo por el que se envian los datos, si tenes el ultimo chrome seguro tendras habilitado websockets, pero y si tu servidor no soporta websockets?, o en el caso que tengas un internet explorer 6, y un servidor que si soporte websockets, no podras utilizarlo?</p>
+        <p>Aqui es donde entra socket.io, el verifica todo esto por su cuenta y decide cual es el mejor modo de transporte habilitado, si tenes un navegador que soporte websockets, usara websocket, sino, utilizara pooling, y dadas las circunstancias de que no este ninguno habilitado, insertara en tu pagina un swf (si, flash) y utilizara las funciones de flash para que todos puedan utilizar tu aplicacion!</p>
+        <h4>Y esto en que me afecta a mi?</h4>
+        <p>Pues facil, esto significa que tu aplicacion funcionara en cualquier dispositivo, con cualquier conexion y en cualquier circunstancia!</p>
+        <h4>HeartBeats, timeouts etc.</h4>
+        <p>una coneccion que no a recibido datos se cierra luego de haber pasado un tiempo, esto se conoce como timeout, entonces, que sucede si no e recibido datos en un buen tiempo a traves de un socket? facil! socket.io manda un heartbeat (literalmente significa latido de corazon) antes que termine el tiempo de timeout para informarle al servidor que seguimos vivos, gracias a esto la conexion sigue siempre activa, <b>esto lo hace solito socket.io</b> pero es bueno saberlo =)</p>
+        
+        <h3>Agregando sockets a nuestra aplicacion!</h3>
+        <p>por fin la parte divertida! continuando la version que nos dejo nuestro amigo @antonioPol para poder agregar sockets hay que hacer un cambio principal.</p>
+        <p>Arriba, donde declaramos las variables hay que hacer esto</p>
+        
+       
+        <p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/theHazzard">theHazzard</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
