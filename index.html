@@ -31,7 +31,7 @@
       <nav>
         <ul>
           <li><a href="#whatIsNode">Intro!</a></li>
-          <li></li>
+          <li><a href="#SocketIo">Socket.IO</a></li>
           <li></li>
           <li></li>
           <li></li>
@@ -84,7 +84,7 @@ express MiSitio -s -c stylus
         <p>en este ejemplo estamos creando un proyecto llamado MiSitio, este comando recibe parametros tambien, -s le dice que configure express para utilizar sesiones, y -c le dice que vamos a utilizar el motor stylus para el codigo css</p>
         <p>esto nos genera la configuracion basica para tener corriendo un proyecto en express, como el package.json, algunas vistas y tambien rutas</p>
         
-        <h3>Socket.io</h3>
+        <h3 id="SocketIo">Socket.io</h3>
         <h4>Que es socket.io?</h4>
         <p>Socket.io es una libreria que apunta a crear aplicaciones realtime sin tener que preocuparte por el mecanismo de transporte de datos, o de el dispositivo final donde se corra tu aplicacion</p>
         <h4>Todo muy lindo pero... mecanismos de transporte?</h4>
@@ -96,10 +96,65 @@ express MiSitio -s -c stylus
         <p>una coneccion que no a recibido datos se cierra luego de haber pasado un tiempo, esto se conoce como timeout, entonces, que sucede si no e recibido datos en un buen tiempo a traves de un socket? facil! socket.io manda un heartbeat (literalmente significa latido de corazon) antes que termine el tiempo de timeout para informarle al servidor que seguimos vivos, gracias a esto la conexion sigue siempre activa, <b>esto lo hace solito socket.io</b> pero es bueno saberlo =)</p>
         
         <h3>Agregando sockets a nuestra aplicacion!</h3>
-        <p>por fin la parte divertida! continuando la version que nos dejo nuestro amigo @antonioPol para poder agregar sockets hay que hacer un cambio principal.</p>
-        <p><a href="https://github.com/theHazzard/nodejsAndSockets/tree/v1.0" class="user-mention">v1.0</a></p>
+        <p>por fin la parte divertida! continuando la version que nos dejo nuestro amigo @antonioPol <a href="https://github.com/theHazzard/nodejsAndSockets/tree/v1.0" class="user-mention">v1.0</a> primero hay que instalar la libreria de sockets en nuestro proyecto, esto se puede realizar con el siguiente comando.</p>
+        <pre><code>
+npm install socket.io
+        </code></pre>
+        <p>ahora bien, una buena practica aqui, sobre todo si luego pensamos hacer un deployment a heroku o a nodejitsu es agregar el paquete al archivo packages.json, pero como yo soy perezoso, hay un comando para mi!</p>
+        <pre><code>
+npm install socket.io --save          
+        </code></pre>
+        <p>esto hace que se instale nuestro paquete o libreria, y ademas se agregue automaticamente al archivo packages.json, quedando de esta manera.</p>
+        <pre><code>
+"dependencies": {
+  "express": "3.0.6",
+  "jade": "0.28.1",
+  "socket.io": "~0.9.13"
+}          
+        </code></pre>
+        <p>ahora bien, desde aqui podemos continuar! para ello necesitamos, en el archivo app.js, agregar la libreria.</p>
+        <pre><code>
+var express = require('express')
+  , routes = require('./routes')
+  , user = require('./routes/user')
+  , http = require('http')
+  , path = require('path');          
+        </code></pre>
+        <p>ahora quedaria asi</p>
+        <pre><code>
+var express = require('express')
+  , routes = require('./routes')
+  , user = require('./routes/user')
+  , app = express()
+  , http = require('http').createServer(app)
+  , io = require('socket.io')
+  , io = io.listen(http)
+  , path = require('path');
+        </code></pre>
+        <p>como podran ver se agrego la linea
+        <br>
+        <code>app = express()</code>
+        <br>
+        <p>esto estaba ya hecho mas abajo, pero es necesario hacerlo antes de declarar nuestra variable http, ya que ahora es necesario alimentar esta variable con nuestra instancia de express <br>ahora en la linea de abajo le agregamos el metodo createServer y le pasamos nuestra instancia de express. (en app)</p>
+        <br>
+        <p>ahora tenemos, debajo de <code>http</code> la variable <code>io</code></p>
+        <code>io = require('socket.io')</code>
+        <p>que hace esto? trae las funciones de la libreria a la variable <code>io!</code>, pues bien, ya tenemos en nuestra app las funciones de sockets.
+        <br>pero esto no es todo!.
+        <br>ahora hay que decirle a nuestra libreria que escuche por nuestro servidor http, como lo estamos haciendo en la linea de abajo</p>
+        <code>io = io.listen(http)</code>
+        <p>y listo, ahora en io, tenemos a nuestro socket escuchando en http</p>
+        <p>solo nos queda decir que en el final, donde antes estaba escuchando nuestra instancia de http, hay que modificarlo de la siguiente manera</p>
+        <pre><code>
+http.listen(app.get('port'), function(){
+  console.log("Express server listening on port " + app.get('port'));
+});
+        </code></pre>
+        <p>esto se debe a que arriba ya estamos haciendo la parte de <code>.createServer</code><br><a href="https://github.com/theHazzard/nodejsAndSockets/tree/7ed0e0dff943890914de6c1369ea5e3d9000ea4d">Commit con los cambios explicados</a></p>
         
-       
+        <h3>Reciviendo los sockets conectados</h3>
+        <h4></h4>
+        <p></p>
         <p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
       </section>
       <footer>
