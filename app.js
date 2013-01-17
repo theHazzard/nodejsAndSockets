@@ -12,6 +12,9 @@ var express = require('express')
   , io = io.listen(http)
   , path = require('path');
 
+io.sockets.on('connection',function (socket){
+  socket.emit('mensaje','bienvenidos!')
+})
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
