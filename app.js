@@ -6,10 +6,12 @@
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
-  , http = require('http')
+  , app = express()
+  , http = require('http').createServer(app)
+  , io = require('socket.io')
+  , io = io.listen(http)
   , path = require('path');
 
-var app = express();
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -40,6 +42,6 @@ app.get('/chat', routes.chat);
 app.post('/salir', routes.salir);
 app.get('/users', user.list);
 
-http.createServer(app).listen(app.get('port'), function(){
+http.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
