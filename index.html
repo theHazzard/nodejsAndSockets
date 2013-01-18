@@ -42,7 +42,7 @@
         <p>
           Node.js te permite correr javascript del lado del servidor, es decir, utilizando el motor V8 de google permite correr javascript fuera del navegador, que es como comunmente era utilizado, node.js es un conjunto de librerias y funciones que corren sobre este motor de google
         </p>
-        <h3>Callback functions</h3>
+        <h3 id="CallBack">Callback functions</h3>
         <p>
           lo que mas me a costado entender, es el manejo que tiene javascript de las funciones, javascript es un lenguaje funcional, y maneja las funciones como uno de sus objetos mas importantes, las funciones de callback, son enviadas como parametros a otras funciones, para ser llamadas desde dentro de las mismas
         </p>
@@ -153,9 +153,15 @@ http.listen(app.get('port'), function(){
         <p>esto se debe a que arriba ya estamos haciendo la parte de <code>.createServer</code><br><a href="https://github.com/theHazzard/nodejsAndSockets/tree/7ed0e0dff943890914de6c1369ea5e3d9000ea4d">Commit con los cambios explicados</a></p>
         
         <h3>Reciviendo los sockets conectados</h3>
-        <h4></h4>
-        <p></p>
-        <p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+        <h4>En el server...</h4>
+        <pre><code>
+io.sockets.on('connection',function (socket){
+  socket.emit('mensaje','bienvenidos!')
+})          
+        </code></pre>
+        <p>que estamos haciendo con esto? bueno, <code>io</code> es nuestra instancia de socket.io a la escucha de conexiones, ahora estamos agregando a los sockets un manejador del evento connection, osea, que cuando haya una conexion, ejecute la funcion que le estamos pasando, recuerdan lo de las <a href="#CallBack">funciones callback?</a>, bueno, aqui estamos haciendo uso de ellas, con esto le estamos diciendo "on connection do this", o "al haber una conexion hace esto" donde "esto" es la funcion</p>
+        <p>la funcion callback que le estamos pasando recibe como parametro el socket que se conecto, este a diferencia de io.sockets(que son todos los sockets) es una conexion individual, osea un usuario unico, o una conexion unica a dicho usuario.</p>
+        <p>luego donde hacemos <code>socket.emit('evento','mensaje')</code> le estamos diciendo que a este socket unico e individual le mandemos el evento mensaje, con el mensaje bienvenidos!</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/theHazzard">theHazzard</a></p>
