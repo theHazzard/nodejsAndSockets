@@ -153,15 +153,57 @@ http.listen(app.get('port'), function(){
         <p>esto se debe a que arriba ya estamos haciendo la parte de <code>.createServer</code><br><a href="https://github.com/theHazzard/nodejsAndSockets/tree/7ed0e0dff943890914de6c1369ea5e3d9000ea4d">Commit con los cambios explicados</a></p>
         
         <h3>Reciviendo los sockets conectados</h3>
-        <h4>En el server...</h4>
+        <h4 id='socketServer'>En el server...</h4>
         <pre><code>
 io.sockets.on('connection',function (socket){
   socket.emit('mensaje','bienvenidos!')
 })          
         </code></pre>
-        <p>que estamos haciendo con esto? bueno, <code>io</code> es nuestra instancia de socket.io a la escucha de conexiones, ahora estamos agregando a los sockets un manejador del evento connection, osea, que cuando haya una conexion, ejecute la funcion que le estamos pasando, recuerdan lo de las <a href="#CallBack">funciones callback?</a>, bueno, aqui estamos haciendo uso de ellas, con esto le estamos diciendo "on connection do this", o "al haber una conexion hace esto" donde "esto" es la funcion</p>
+        <p>que estamos haciendo con esto? bueno, <code>io</code> es nuestra instancia de socket.io a la escucha de conexiones, ahora estamos agregando a los sockets un manejador del evento connection, osea, que cuando haya una conexion, ejecute la funcion que le estamos pasando, recuerdan lo de las <a href="#CallBack">funciones callback?</a>, bueno, aqui estamos haciendo uso de ellas, con esto le estamos diciendo "on connection do this", o "al haber una conexion hace esto" donde "esto" es la <b>funcion</b></p>
         <p>la funcion callback que le estamos pasando recibe como parametro el socket que se conecto, este a diferencia de io.sockets(que son todos los sockets) es una conexion individual, osea un usuario unico, o una conexion unica a dicho usuario.</p>
         <p>luego donde hacemos <code>socket.emit('evento','mensaje')</code> le estamos diciendo que a este socket unico e individual le mandemos el evento mensaje, con el mensaje bienvenidos!</p>
+        <h4>Del lado del cliente...</h4>
+        <p>Para que podamos recivir estos datos, en el lado del cliente hay que configurar la conexion, para ello voy a crear un archivo js con las conexiones y en si, todo mi javascript, el mismo quedaria mas o menos asi</p>
+        <pre>
+          <code>
+$(document).on('ready',function(){
+  var socket = io.connect('http://localhost:3000');
+  socket.on('mensaje',function (mensaje){
+    alert(mensaje);
+  })
+});</code>
+        </pre>
+        <p>como podemos apreciar, tambien hago uso de jquery (por el simbolito <code>$</code>)
+        <br>
+        creo la variable socket, donde creo la coneccion al servidor on la variable io (ahora les voy a mostrar donde esta declarada)
+        <br>
+        ahora abajo le digo, <code>socket.on('mensaje',function...);</code> esto significa, que cuando el socket reciba el evento <code>'mensaje'</code>, ejecute la funcion callback que le pasamos como parametro, que lo que hace es recibir el mensaje enviado por el servidor en la variable mensaje que recibe como parametro (recuerdan el <a href="#socketServer">Paso anterior?</a> donde le deciamos que envie el mensaje bienvenidos?, bueno, esta es la funcion que lo recibe, y lo muestra en un alert!</p>
+        <b><p>El archivo lo nombre <code>skt.js</code> y lo guarde en <code>public</code></p></b>
+        <h4>Configurando el html mostrado al usuario...</h4>
+        <p>ahora, como proveo al usuario con este js?, en el archivo <code>layout.jade</code> el cual es quien henera el <code>head</code> de las paginas mostradas incluimos esto</p>
+        <pre>
+          <code>
+script(src='skt.js')            
+          </code>
+        </pre>
+        <p>no hace falta agregarle mas nada el path del <code>src</code> por que ya configuramos en express cual va a ser nuestro directorio publico, asi que todo lo que no este en las rutas lo va a buscar ahi
+        <br>
+        pero nos estan faltando otras cosas!, yo dije clarito que estoy usando Jquery en el selector, asi que arriba de la linea agregada tenemos que agregar jquery, lo vamos a hacer desde google, asi no alojamos en nuestra pagina el js =P
+        </p>
+        <pre>
+          <code>
+script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js')            
+          </code>
+        </pre>
+        <p>
+          tambien, como estamos haciendo uso de <code>io.connect()</code> en algun lado debemos traer la libreria de socket.io para el cliente, lo hacemos con esta linea, que debemos agregar antes de nuestro archivo <code>js</code> que creamos.
+        </p>
+        <pre>
+          <code>
+script(src='/socket.io/socket.io.js')            
+          </code>
+        </pre>
+        <p>ahora, de donde esta sacando este js? si en nuestra carpeta public no esta, ni tampoco tenemos una carpeta socket.io?, bueno, esta parte la interpreta socket.io, y le pasa el js automaticamente! asi que con esto ya estamos en el layout.jade</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/theHazzard">theHazzard</a></p>
