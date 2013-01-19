@@ -60,7 +60,7 @@ exports.chat = function(req, res){
   {
   	res.redirect('/');
   }else{
-  	res.render('chat', { title: 'Chat',usuario: req.session.usuario, usuarios: usuarios  });
+  	res.render('chat', { title: 'Chat',usuario: req.session.usuario, usuarios: usuarios, request: req  });
   }
 };
 
