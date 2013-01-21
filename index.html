@@ -203,10 +203,38 @@ script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js')
 script(src='/socket.io/socket.io.js')            
           </code>
         </pre>
-        <p>ahora, de donde esta sacando este js? si en nuestra carpeta public no esta, ni tampoco tenemos una carpeta socket.io?, bueno, esta parte la interpreta socket.io, y le pasa el js automaticamente! asi que con esto ya estamos en el layout.jade</p>
-        <p><a href="https://github.com/theHazzard/nodejsAndSockets/blob/d98b3fb4943063a914995d0ab7e564aec67f4c32/views/layout.jade"><b>Nuestro archivo layout.jade quedaria asi</b></a>
+        <p>ahora, de donde esta sacando este js? si en nuestra carpeta public no esta, ni tampoco tenemos una carpeta socket.io?, bueno, esta parte la interpreta socket.io, y le pasa el js automaticamente! asi que con esto ya estamos con el <a href="https://github.com/theHazzard/nodejsAndSockets/blob/d98b3fb4943063a914995d0ab7e564aec67f4c32/views/layout.jade">layout.jade</a></p>
+        <h4>Autentificando los sockets</h4>
+        <p>Para asegurarnos que solo nuestros usuarios se van a conectar como sockets, vamos a autentificar las conexiones, para ello debemos configurar socket.io</p>
+        <p>Esto lo hacemos agregando debajo de nuestras variables la siguientes lineas</p>
+        <pre><code>
+io.configure(function (){
+  io.set('authorization', function (handshakeData, callback) {})
+});          
+        </code></pre>
+        <p>Ahi le estamos diciendo que se ejecute la funcion que le estoy pasando cuando se haga la autorizacion del socket, por defecto autoriza todas, pero ahora debera pasar por mi funcion antes de autorizar.</p>
+        <p>Para ello, voy a ver dentro de las sesiones si la conexion que esta entrando esta logeada, osea, deberia tener creada session.user
         <br>
-        <a href="https://github.com/theHazzard/nodejsAndSockets/blob/d98b3fb4943063a914995d0ab7e564aec67f4c32/public/skt.js"><b>Y nuestro archivo skt.js asi</b></a></p>
+        las sesiones por defecto en node.js se guardan en una MemoryStore, osea, en memoria, para poder entrar a esta MemoryStore, debemos crearla donde declaramos nuestras variables, de la siguiente manera</p>
+        <pre><code>
+var MemoryStore = express.session.MemoryStore;          
+        </code></pre>
+        <p>ahora tenemos la clase MemoryStore, pero debemos instanciarlo de la siguiente manera.
+        </p>
+        <pre><code>
+var sessionStore = new MemoryStore()          
+        </code></pre>
+        <p>ya que estamos en esta parte, vamos a declarar 2 variables mas que vamos a necesitar en el transcurso de nuestra autorizacion</p>
+        <pre><code>
+var parseCookie = require('express/node_modules/connect').utils.parseSignedCookies          
+        </code></pre>
+        <p>parseCookie es una funcion que parsea nuestras cookies que estan encriptadas, osea, le pasamos nuestra "frase secreta" y desencripta nuestra cookie, y la parsea</p>
+        <pre><code>
+var cookie = require('express/node_modules/cookie')          
+        </code></pre>
+        <p>cookie tiene funciones que vamos a utilizar con nuestras cookies</p>
+        <h4>Autorizando!</h4>
+        <p></p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/theHazzard">theHazzard</a></p>
