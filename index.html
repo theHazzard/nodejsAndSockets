@@ -219,7 +219,7 @@ io.configure(function (){
         <pre><code>
 var MemoryStore = express.session.MemoryStore;          
         </code></pre>
-        <p>ahora tenemos la clase MemoryStore, pero debemos instanciarlo de la siguiente manera.
+        <p>ahora tenemos la clase MemoryStore, pero debemos instanciarlo.
         </p>
         <pre><code>
 var sessionStore = new MemoryStore()          
@@ -228,13 +228,77 @@ var sessionStore = new MemoryStore()
         <pre><code>
 var parseCookie = require('express/node_modules/connect').utils.parseSignedCookies          
         </code></pre>
-        <p>parseCookie es una funcion que parsea nuestras cookies que estan encriptadas, osea, le pasamos nuestra "frase secreta" y desencripta nuestra cookie, y la parsea</p>
+        <p>parseCookie es una funcion que parsea nuestras cookies que estan encriptadas, osea, le pasamos nuestra "frase secreta" y desencripta nuestra cookie</p>
         <pre><code>
 var cookie = require('express/node_modules/cookie')          
         </code></pre>
         <p>cookie tiene funciones que vamos a utilizar con nuestras cookies</p>
         <h4>Autorizando!</h4>
-        <p></p>
+        <p>para ello debemos leer las cookies que vienen en nuestros datos de handshake (los datos de handshake o "apreton de manos" se generan al establecerse la conexion del socket) el mismo tiene la siguiente estructura</p>
+        <pre><code>
+{
+   headers: req.headers      
+ , time: (new Date) +''       
+ , address: socket.address()  
+ , xdomain: !!headers.origin  
+ , secure: socket.secure      
+ , issued: +date              
+ , url: request.url          
+ , query: data.query          
+}          
+        </code></pre>
+        <p>Entonces, como nuestra funcion recibe los datos de handshake con el nombre <code>handshakeData</code> las cookies se encuentran dentro de <code>handshakeData.headers.cookie</code></p>
+        <p>Como nuestras cookies van codificadas al usuario, necesitamos decodificarlas, lo hacemos de la siguiente manera.</p>
+        <pre><code>
+if (handshakeData.headers.cookie){
+  handshakeData.cookie = parseCookie(cookie.parse(handshakeData.headers.cookie),'M1Supp3RS3cr3TP@SsW0Rd');
+};          
+        </code></pre>
+        <p>si existe la cookie, guarda dentro de nuestro handshake la cookie decodificada con parseCookie, dentro de parseCookie le pasamos nuestra cookie parseada como primer parametro (hecho con cookie.parse) y como segundo parametro nuestra frase secreta, la que le pasamos en la configuracion de node.js</p>
+        <p>luego guardamos nuestro id de session en nuestro objeto <code>handshakeData</code> al que ahora gracias a parsearlo, podemos acceder de la siguiente manera:</p>
+        <pre><code>
+handshakeData.sessionID = handshakeData.cookie['express.sid'];          
+        </code></pre>
+        <p>ahora que tenemos el id, podemos buscar la sesion en nuestro sessionStore, lo hacemos con el metodo <code>get</code></p>
+        <pre><code>
+sessionStore.get(handshakeData.sessionID, function (err, session){});                  
+        </code></pre>
+        <p>Como ven, recive como primer parametro el id por el que voy a buscar, y como segundo una funcion callback, la misma recibe como primer parametro el error, y el segundo la sesion que obtuvo al hacer el <code>get</code> con el id</p>
+        <p>dentro de esta funcion, si no pudo obtener la sesion completa la variable err, sino, me completa la variable session con la sesion del usuario, ahora vamos a corroborar que este logeado de la siguiente manera</p>
+        <pre><code>
+if (err){ callback('fallo la obtencion de sesion!',false) };
+if (session){
+  if (session.usuario){
+    callback(null,true)
+  } else {
+    callback('el usuario no esta logeado', false)
+  }
+}          
+        </code></pre>
+        <p><code>callback</code> es una funcion que nos pasa socket.io para poder continuar con la autenticacion de nuestro socket, a ella la llamamos con el error primero, y el valor de lo que le estemos pasando despues, en el caso de que usuario exista dentro de sesion (lo que significa que esta logeado) llamamos a la funcion <code>callback(null,true)</code> osea, el error es null, y true por que autenticamos al usuario, caso contrario, le pasamos como error <b>'el usuario no esta logeado'</b> y false, ya que no permitimos que se conecte el socket</p>
+        <p>el codigo final, queda de la siguiente manera</p>
+        <pre><code>
+io.configure(function (){
+  io.set('authorization', function (handshakeData, callback) {
+    if (handshakeData.headers.cookie)
+    {
+      handshakeData.cookie = parseCookie(cookie.parse(handshakeData.headers.cookie),'M1Supp3RS3cr3TP@SsW0Rd');
+      handshakeData.sessionID = handshakeData.cookie['express.sid'];
+      sessionStore.get(handshakeData.sessionID, function (err, session) {
+        if (err){ callback('fallo la obtencion de sesion!',false) };
+        if (session){
+          if (session.usuario){
+            callback(null,true)
+          } else {
+            callback('el usuario no esta logeado', false)
+          }
+        }
+      })
+    }
+  });
+});
+        </code></pre>
+        <p>Quedando el archivo <a href="https://github.com/theHazzard/nodejsAndSockets/blob/619c9098e7f4386401e033489009299fcc63a2a9/app.js">de la siguiente manera</a></p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/theHazzard">theHazzard</a></p>
