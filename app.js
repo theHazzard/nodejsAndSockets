@@ -40,8 +40,8 @@ io.configure(function (){
 });
 
 io.sockets.on('connection',function (socket){
-  socket.emit('mensaje','bienvenidos!');
-  socket.on('mensaje',function(mensaje){
+  socket.broadcast.emit('nuevoUsuario',socket.handshake.session.usuario);
+  socket.on('mensaje',function(mensaje){ 
     io.sockets.emit('nMensaje',{nombre: socket.handshake.session.usuario, mensaje: mensaje})
   })
 })

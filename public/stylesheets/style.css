@@ -8,7 +8,7 @@ a {
 }
 
 #chatContainer {
-  width: 95%;
+  width: 100%;
 }
 
 #chat {
@@ -17,6 +17,8 @@ a {
   background-color: #808080;
   display: inline-block;
   vertical-align: top;
+  overflow: auto;
+  overflow-y: auto;  
 }
 
 #users {
@@ -25,8 +27,26 @@ a {
   background-color: #D4D0C8;
   display: inline-block;
   vertical-align: top;
+  overflow: auto;
+  overflow-y: auto;  
 }
 
 #chatInput {
 	width: 100%;
+}
+
+.msg {
+	width: 100%;
+}
+
+.nombre {
+	width: 50px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.mensaje {
+	width: auto;
+	display: inline-block;
+	vertical-align: top;
 }

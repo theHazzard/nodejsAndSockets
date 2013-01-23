@@ -3,6 +3,10 @@ $(document).on('ready',function(){
 	socket.on('mensaje',function (mensaje){
 		alert(mensaje);
 	})
+	socket.on('nuevoUsuario',function (usuario){
+		$('#chat').append('<article class="nusu"><section class="mensaje"> se conecto el usuario '+usuario+'</section></article>');
+	   	$('#chat').animate({ scrollTop: 60000 }, 'slow');
+	});
 	socket.on('nMensaje',function (mensaje){
 		$('#chat').append('<article class="msg"><section class="nombre">'+mensaje.nombre+'</section><section class="mensaje">'+mensaje.mensaje+'</section></article>');
 	   	$('#chat').animate({ scrollTop: 60000 }, 'slow');
