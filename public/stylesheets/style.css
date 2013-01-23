@@ -6,3 +6,27 @@ body {
 a {
   color: #00B7FF;
 }
+
+#chatContainer {
+  width: 95%;
+}
+
+#chat {
+  width: 85%;
+  height: 200px;
+  background-color: #808080;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#users {
+  width: 15%;
+  height: 200px;
+  background-color: #D4D0C8;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#chatInput {
+	width: 100%;
+}

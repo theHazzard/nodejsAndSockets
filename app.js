@@ -28,7 +28,8 @@ io.configure(function (){
         if (err){ callback('fallo la obtencion de sesion!',false) };
         if (session){
           if (session.usuario){
-            callback(null,true)
+            handshakeData.session = session;
+            callback(null,true);
           } else {
             callback('el usuario no esta logeado', false)
           }
@@ -40,7 +41,9 @@ io.configure(function (){
 
 io.sockets.on('connection',function (socket){
   socket.emit('mensaje','bienvenidos!');
-  console.log(socket);
+  socket.on('mensaje',function(mensaje){
+    io.sockets.emit('nMensaje',{nombre: socket.handshake.session.usuario, mensaje: mensaje})
+  })
 })
 
 app.configure(function(){

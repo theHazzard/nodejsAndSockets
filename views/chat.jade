@@ -6,11 +6,10 @@ block content
 	h3 Listado de Usuarios
 	section#chatContainer
 		section#chat
-		form(action='')
-			input(type='submit')#chatInput
 		section#users
 			if(usuarios)
 				each u in usuarios
 					p #{u.usuario}			
+		input#chatInput
 	form(action='/salir', method='post')
 		input(type='submit', value='Salir')
