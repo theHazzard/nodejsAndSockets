@@ -264,11 +264,13 @@ handshakeData.sessionID = handshakeData.cookie['express.sid'];
 sessionStore.get(handshakeData.sessionID, function (err, session){});                  
         </code></pre>
         <p>Como ven, recive como primer parametro el id por el que voy a buscar, y como segundo una funcion callback, la misma recibe como primer parametro el error, y el segundo la sesion que obtuvo al hacer el <code>get</code> con el id</p>
-        <p>dentro de esta funcion, si no pudo obtener la sesion completa la variable err, sino, me completa la variable session con la sesion del usuario, ahora vamos a corroborar que este logeado de la siguiente manera</p>
+        <p>dentro de esta funcion, si no pudo obtener la sesion completa la variable err, sino, me completa la variable session con la sesion del usuario, ahora vamos a corroborar que este logeado de la siguiente manera <br>
+        ahora, en handshakeData.session estamos guardando una copia de la session, para acceder a los datos del usuario</p>
         <pre><code>
 if (err){ callback('fallo la obtencion de sesion!',false) };
 if (session){
   if (session.usuario){
+    handshakeData.session = session;
     callback(null,true)
   } else {
     callback('el usuario no esta logeado', false)
@@ -310,7 +312,26 @@ io.configure(function (){
         <p>en secret le indicamos nuestra frase con la que cifrara las sessiones, y por ultimo en key le indicamos por que archivo va a almacenar las sessiones</p>
         <p>Quedando el archivo <a href="https://github.com/theHazzard/nodejsAndSockets/blob/619c9098e7f4386401e033489009299fcc63a2a9/app.js">de la siguiente manera</a></p>
         <h4>Agregando el chat a los views</h4>
-        <p>s</p>
+        <p>Llego la hora de materializar el chat en las pantallas de nuestros queridos usuarios! <br>
+        como hacemos esto? bueno pues, en el views->chat.jade, que es lo que genera nuestra vista del chat (que por ahora solo mostraba los usuarios conectados), debe quedar de la siguiente manera:</p>
+        <pre><code>
+extends layout
+
+block content
+  h1= title
+  h2 Bienvenido #{usuario}
+  h3 Listado de Usuarios
+  section#chatContainer
+    section#chat
+    section#users
+      if(usuarios)
+        each u in usuarios
+          p #{u.usuario}      
+    input#chatInput
+  form(action='/salir', method='post')
+    input(type='submit', value='Salir')          
+        </code></pre>
+        <p>Bien, ahora tenemos un gran contenedor </p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/theHazzard">theHazzard</a></p>
