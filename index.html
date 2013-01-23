@@ -277,7 +277,7 @@ if (session){
         </code></pre>
         <p><code>callback</code> es una funcion que nos pasa socket.io para poder continuar con la autenticacion de nuestro socket, a ella la llamamos con el error primero, y el valor de lo que le estemos pasando despues, en el caso de que usuario exista dentro de sesion (lo que significa que esta logeado) llamamos a la funcion <code>callback(null,true)</code> osea, el error es null, y true por que autenticamos al usuario, caso contrario, le pasamos como error <b>'el usuario no esta logeado'</b> y false, ya que no permitimos que se conecte el socket</p>
         <p>el codigo final, queda de la siguiente manera</p>
-        <pre><code>
+        <pre id='auth'><code>
 io.configure(function (){
   io.set('authorization', function (handshakeData, callback) {
     if (handshakeData.headers.cookie)
@@ -298,6 +298,16 @@ io.configure(function (){
   });
 });
         </code></pre>
+        <p>hay que decirle a express que ahora tiene que utilizar <code>sessionStore</code> para guardar las sesiones, donde antes decia <code>app.use(express.session())</code>ahora debe decir lo siguiente</p>
+        <pre><code>
+  app.use(express.session({
+    store: sessionStore,
+    secret: 'M1Supp3RS3cr3TP@SsW0Rd',
+    key: 'express.sid'
+  }));          
+        </code></pre>
+        <p>alli como podemos observar, le estamos diciendo que el store ("repositorio" o "archivo") es <code>sessionStore</code> el mismo que utilizamos luego para buscar si el usuario esta logeado(<a href="#auth">aqui</a>)</p>
+        <p>en secret le indicamos nuestra frase con la que cifrara las sessiones, y por ultimo en key le indicamos por que archivo va a almacenar las sessiones</p>
         <p>Quedando el archivo <a href="https://github.com/theHazzard/nodejsAndSockets/blob/619c9098e7f4386401e033489009299fcc63a2a9/app.js">de la siguiente manera</a></p>
         <h4>Agregando el chat a los views</h4>
         <p>s</p>
