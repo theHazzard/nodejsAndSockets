@@ -335,7 +335,49 @@ block content
         <h4>Estilizando un poquito el chat...</h4>
         <p>con un poquito me refiero a dejarlo lo suficientemente feo pero que se pueda ver la pantalla de chat =P</p>
         <pre><code>
-          
+#chatContainer {
+  width: 100%;
+}
+
+#chat {
+  width: 85%;
+  height: 200px;
+  background-color: #808080;
+  display: inline-block;
+  vertical-align: top;
+  overflow: auto;
+  overflow-y: auto;  
+}
+
+#users {
+  width: 15%;
+  height: 200px;
+  background-color: #D4D0C8;
+  display: inline-block;
+  vertical-align: top;
+  overflow: auto;
+  overflow-y: auto;  
+}
+
+#chatInput {
+  width: 100%;
+}
+
+.msg {
+  width: 100%;
+}
+
+.nombre {
+  width: 50px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.mensaje {
+  width: auto;
+  display: inline-block;
+  vertical-align: top;
+}          
         </code></pre>
       </section>
       <footer>
