@@ -382,7 +382,7 @@ block content
         <p>ahora que tenemos toda la visual y estructura podemos seguir</p>
         <h4>Agregando el jquery necesario para enviar los chats, y los eventos de socket.io mismos</h4>
         <p>como vimos anteriormente, para lograr una "charla" entre nuestro server y nuestros usuarios, debemos lograr una comunicacion entre ellos usando eventos, primero voy a pegar aqui nuestro archivo <a href="https://github.com/theHazzard/nodejsAndSockets/blob/e2b8fe6970ac1122dca52cf3d878ac7ce60c36a3/public/skt.js">skt.js completo</a> y voy a explicar sus partes.(ok skt, get naked)</p>
-        <pre><code>
+        <pre id="codigoSockets"><code>
 var socket = io.connect('http://localhost:3000');
 $(document).on('ready',function(){
   socket.on('mensaje',function (mensaje){
@@ -412,7 +412,19 @@ $(document).on('ready',function(){
         <br>
         luego con <code>$('#chatInput').val("");</code> vaciamos el input para que el user pueda seguir escribiendo nuevos mensajes! it's a cake!</p>
         <h4>ahora, recibiendo y enviando eventos desde el server</h4>
-        <p>bien, como vimos en el codigo anterior, skt.js recibe los eventos <code>nuevoUsuario</code> y <code>nMensaje</code>, para que esto pase lo debemos enviar desde el servidor, asi como tambien recibir el evento <code>mensaje</code></p>
+        <p>bien, como vimos en el codigo anterior, skt.js recibe los eventos <code>nuevoUsuario</code> y <code>nMensaje</code>, para que esto pase lo debemos enviar desde el servidor, asi como tambien recibir el evento <code>mensaje</code> desde el mismo asi repartimos el mensaje a los otros usuarios!</p>
+        <p>veamos un poco el codigo de app.js para recibir los eventos</p>
+        <pre><code>
+io.sockets.on('connection',function (socket){
+  socket.broadcast.emit('nuevoUsuario',socket.handshake.session.usuario);
+  socket.on('mensaje',function(mensaje){ 
+    io.sockets.emit('nMensaje',{nombre: socket.handshake.session.usuario, mensaje: mensaje})
+  })
+})          
+        </code></pre>
+        <p>como pueden ver es muy simple, cuando nuestro server recibe una conexion, envia a todos los usuarios conectados menos el que inicio sesion (esto se logra con <code>socket.broadcast.emit</code>), el nombre del nuevo usuario (que como recordamos en skt.js tomamos este evento y escribimos en la pantalla el usuario conectado)<br>
+        luego al recibir un mensaje nuevo (el que emitiamos en <a href="#codigoSockets">#chatInput</a> de skt.js) y lo emitimos a todos los usuarios, incluyendo al que lo envio (esto lo hacemos con <code>io.sockets.emit</code>)</p>
+        <p>LISTO, esto es todo, ya tenemos un chat andando! FELICIDADES!! =) ahora a seguir con passport.js </p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/theHazzard">theHazzard</a></p>
