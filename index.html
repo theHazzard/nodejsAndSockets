@@ -32,7 +32,7 @@
         <ul>
           <li><a href="#whatIsNode">Intro!</a></li>
           <li><a href="#SocketIo">Socket.IO</a></li>
-          <li></li>
+          <li><a href="#passport"></a>Passportjs</li>
           <li></li>
           <li></li>
         </ul>
@@ -425,6 +425,23 @@ io.sockets.on('connection',function (socket){
         <p>como pueden ver es muy simple, cuando nuestro server recibe una conexion, envia a todos los usuarios conectados menos el que inicio sesion (esto se logra con <code>socket.broadcast.emit</code>), el nombre del nuevo usuario (que como recordamos en skt.js tomamos este evento y escribimos en la pantalla el usuario conectado)<br>
         luego al recibir un mensaje nuevo (el que emitiamos en <a href="#codigoSockets">#chatInput</a> de skt.js) y lo emitimos a todos los usuarios, incluyendo al que lo envio (esto lo hacemos con <code>io.sockets.emit</code>)</p>
         <p>LISTO, esto es todo, ya tenemos un chat andando! FELICIDADES!! =) ahora a seguir con passport.js </p>
+        <h3 id="passortjs">Manejando nuestros logins con PassportJS</h3>
+        <p>En primer lugar, hay que instalar los modulos de passport para ello:</p>
+        <p><code>npm install passport --save</code> con esto estamos instalando las funciones principales de passport, ahora, para cada login (ya sea local, por twitter o por facebook) hay una estrategia de conexion, estas se descargan con los siguientes codigos</p>
+        <p><code>npm install passport-facebook</code> para la estrategia de conexion con facebook</p>
+        <p><code>npm install passport-twitter</code> obviamente para la estrategia de conexion con twitter</p>
+        <h4>Creando aplicaciones en twitter y facebook</h4>
+        <p>para que twtitter o facebook nos dejen utilizar sus funciones, debemos tener codigos o tokens de autenticacion, estas se obtienen al crear aplicaciones en las respectivas paginas, vamos por partes, para crear una aplicacion debemos hacer lo siguiente...</p>
+        <h4>Aplicacione en facebook</h4>
+        <p>primero debemos entrar a la pagina de <a href="https://developers.facebook.com/apps">Facebook developers</a> y hacer click en <b>crear nueva aplicacion</b>
+        <br>
+        <img src="./images/fb-paso1.png" alt="">
+        <br>
+        Luego debemos completar el nombre de la aplicacion y hacer click en continuar.
+        <br>
+        <img src="./images/fb-paso2.png" alt="">
+        <br>
+        Una ves que hayamos hecho esto, debemos completar el <b>app domain</b></p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/theHazzard">theHazzard</a></p>
