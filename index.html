@@ -333,7 +333,7 @@ block content
         </code></pre>
         <p>Bien, ahora tenemos un gran contenedor <code>#chatContainer</code> el cual va a tener todas las partes del chat, tanto como donde se van a visualizar los mensajes <code>#chat</code> y donde se van a visualizar los usuarios <code>#users</code> como donde vamos a escribir los mensajes a enviar <code>#chatInput</code></p>
         <h4>Estilizando un poquito el chat...</h4>
-        <p>con un poquito me refiero a dejarlo lo suficientemente feo pero que se pueda ver la pantalla de chat =P</p>
+        <p>con un poquito me refiero a dejarlo lo suficientemente feo pero que se pueda ver la pantalla de chat mas o menos organizada =P</p>
         <pre><code>
 #chatContainer {
   width: 100%;
@@ -379,6 +379,40 @@ block content
   vertical-align: top;
 }          
         </code></pre>
+        <p>ahora que tenemos toda la visual y estructura podemos seguir</p>
+        <h4>Agregando el jquery necesario para enviar los chats, y los eventos de socket.io mismos</h4>
+        <p>como vimos anteriormente, para lograr una "charla" entre nuestro server y nuestros usuarios, debemos lograr una comunicacion entre ellos usando eventos, primero voy a pegar aqui nuestro archivo <a href="https://github.com/theHazzard/nodejsAndSockets/blob/e2b8fe6970ac1122dca52cf3d878ac7ce60c36a3/public/skt.js">skt.js completo</a> y voy a explicar sus partes.(ok skt, get naked)</p>
+        <pre><code>
+var socket = io.connect('http://localhost:3000');
+$(document).on('ready',function(){
+  socket.on('mensaje',function (mensaje){
+    alert(mensaje);
+  })
+  socket.on('nuevoUsuario',function (usuario){
+    $('#chat').append('<article class="nusu"><section class="mensaje"> se conecto el usuario '+usuario+'</section></article>');
+      $('#chat').animate({ scrollTop: 60000 }, 'slow');
+  });
+  socket.on('nMensaje',function (mensaje){
+    $('#chat').append('<article class="msg"><section class="nombre">'+mensaje.nombre+'</section><section class="mensaje">'+mensaje.mensaje+'</section></article>');
+      $('#chat').animate({ scrollTop: 60000 }, 'slow');
+  });
+  $('#chatInput').keypress(function (e) {
+      if(e.which == 13) {
+        var message = $('#chatInput').val();
+        socket.emit('mensaje',message);
+        $('#chatInput').val("");
+    }
+  });
+});          
+        </code></pre>
+        <p>primero establecemos la coneccion, y una ves que la pagina esta lista, verificamos los siguientes eventos.</p>
+        <p><code>nuevoUsuario</code>- el cual, al llegar un evento nuevo usuario, agrega en el chat el mensaje "se conecto el usuario NombreDeUsuario", el nombre de usuario lo recibe desde el servidor como parametro</p>
+        <p><code>nMensaje</code>- cuando llega un nuevo mensaje, agrega en el chat el mensaje que envio el usuario, este recibe un objeto con el nombre de quien envio el mensaje, y el cuerpo del mensaje</p>
+        <p><code>#chatInput</code>- aqui estamos capturando cuando se presiona una tecla dentro del input (con keypress), para que? por que queremos saber cuando el usuario da enter (<code>if e.wich = 13</code> donde 13 es enter), y asi emitimos el evento <code>mensaje</code> y le pasamos como parametro ese texto al server, para que lo reparta a los demas usuarios!
+        <br>
+        luego con <code>$('#chatInput').val("");</code> vaciamos el input para que el user pueda seguir escribiendo nuevos mensajes! it's a cake!</p>
+        <h4>ahora, recibiendo y enviando eventos desde el server</h4>
+        <p>bien, como vimos en el codigo anterior, skt.js recibe los eventos <code>nuevoUsuario</code> y <code>nMensaje</code>, para que esto pase lo debemos enviar desde el servidor, asi como tambien recibir el evento <code>mensaje</code></p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/theHazzard">theHazzard</a></p>
