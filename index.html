@@ -432,7 +432,7 @@ io.sockets.on('connection',function (socket){
         <p><code>npm install passport-twitter</code> obviamente para la estrategia de conexion con twitter</p>
         <h4>Creando aplicaciones en twitter y facebook</h4>
         <p>para que twtitter o facebook nos dejen utilizar sus funciones, debemos tener codigos o tokens de autenticacion, estas se obtienen al crear aplicaciones en las respectivas paginas, vamos por partes, para crear una aplicacion debemos hacer lo siguiente...</p>
-        <h4>Aplicacione en facebook</h4>
+        <h4>Aplicaciones en facebook</h4>
         <p>primero debemos entrar a la pagina de <a href="https://developers.facebook.com/apps">Facebook developers</a> y hacer click en <b>crear nueva aplicacion</b>
         <br>
         <img src="./images/fb-paso1.png" alt="">
@@ -441,7 +441,24 @@ io.sockets.on('connection',function (socket){
         <br>
         <img src="./images/fb-paso2.png" alt="">
         <br>
-        Una ves que hayamos hecho esto, debemos completar el <b>app domain</b></p>
+        Una ves que hayamos hecho esto, debemos completar el <b>app domains</b> como vemos en esta imagen le puse <b>localhost</b>, luego hay que marcar <b>Sitio web con Facebook Login</b> y completar el <b>URL del sitio</b> con nuestro sitio web donde vamos a utilizar el login con facebook, tiene que ser un dominio dentro de nuestros <b>app domains</b> ya que si utilizamos otra web, que no sea la de <b>URL del sitio</b> facebook no nos permitira logear, esto es algo que no sucede con Twitter por ejemplo, en facebook son mas estrictos
+        <br>
+        <img src="./images/fb-paso3.png" alt="">
+        <br>
+        lo que vamos a necesitar de los datos que se ven en el paso 3, son el appId y el app secret
+        <br>
+        si queres leer cosas como los mensajes del usuario, o si muro o timeline, las paginas a las que le hizo me gusta, tenes que darle los permisos a tu aplicacion en la seccion de <b>permisos</b>, luego al usuario entrar en tu aplicacion al usuario le aparecera si le quiere dar esos permisos a tu aplicacion, pero esto va mas alla de lo que se va a explicar en este curso, aqui solo necesitamos los permisos por defecto</p>
+        <h4>Aplicaciones en twitter</h4>
+        <p>para poder crear una aplicacion en twitter primero hay que logearse en la pagina de <a href="https://dev.twitter.com/">Twitter Developers</a>, ahi hay que hacer click en tuUsuarioTwitter->My applications</p>
+        <img src="./images/tw-paso1.png" alt="">
+        <p>Una ves ahi, hay que hacer click en <b>Create a new application</b></p>
+        <img src="./images/tw-paso2.png" alt="">
+        <p>una ves hecho esto, hay que completar los datos basicos de tu aplicacion, como el <b>nombre</b> la <b>descripcion</b> y el <b>sitio web</b> de la misma, como lo hice en la siguiente imagen</p>
+        <img src="./images/tw-paso3.png" alt="">
+        <p>el sitio web puede ser cualquiera, al dia de hoy (en el momento en el que escribo este tutorial) no es necesario que sea la misma pagina en la que tenes el login de twitter, no es tan estricto como facebook, pero seria bueno que fuera la misma</p>
+        <p>luego de esto <b>aceptamos las Developer Rules Of The Road</b> marcando el checkbox que dice <b>yes, I agree</b>, <b>completamos el captcha</b> y luego presionamos el boton que dice <b>Create your twitter application</b></p>
+        <p>cuando hayamos finalizado esto, nos llevara a una pagina como la siguiente, alli vamos a tomar nota de el <b>Consumer key</b> y de el <b>Consumer secret</b>, los vamos a necesitar luego al momento de hacer el login</p>
+        <img src="./images/tw-paso4.png" alt="">
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/theHazzard">theHazzard</a></p>
