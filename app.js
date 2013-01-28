@@ -14,8 +14,36 @@ var express = require('express')
   , sessionStore = new MemoryStore()
   , parseCookie = require('express/node_modules/connect').utils.parseSignedCookies
   , cookie = require('express/node_modules/cookie')
-  , path = require('path');
+  , path = require('path')
+  , passport = require('passport')
+  , TwitterStrategy = require('passport-twitter').Strategy
+  , FacebookStrategy = require('passport-facebook').Strategy;
 
+
+passport.use(new FacebookStrategy({
+    clientID: 438087309593727,
+    clientSecret: '735ef968b91607f950c26b62bcdb86fe',
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate(..., function(err, user) {
+      if (err) { return done(err); }
+      done(null, user);
+    });
+  }
+));
+passport.use(new TwitterStrategy({
+    consumerKey: 'aYq88YGA8ekGxAe6WtZ6uQ',
+    consumerSecret: 'D0xFbNvgAnXCwupg3ChDSctp9L4BrJLY62qDsBdjcY',
+    callbackURL: "http://localhost:3000/auth/twitter/callback"
+  },
+  function(token, tokenSecret, profile, done) {
+    User.findOrCreate(..., function(err, user) {
+      if (err) { return done(err); }
+      done(null, user);
+    });
+  }
+));
 io.configure(function (){
   io.set('authorization', function (handshakeData, callback) {
     console.log(handshakeData.headers);
