@@ -40,11 +40,11 @@
         <h3 id="whatIsNode">Node.js</h3>
 
         <p>
-          Node.js te permite correr javascript del lado del servidor, es decir, utilizando el motor V8 de google permite correr javascript fuera del navegador, que es como comunmente era utilizado, node.js es un conjunto de librerias y funciones que corren sobre este motor de google
+          Node.js te permite correr javascript del lado del servidor, es decir, utilizando el motor V8 de google permite correr javascript fuera del navegador, que es como comúnmente era utilizado, node.js es un conjunto de librerías y funciones que corren sobre este motor de google
         </p>
         <h3 id="CallBack">Callback functions</h3>
         <p>
-          lo que mas me a costado entender, es el manejo que tiene javascript de las funciones, javascript es un lenguaje funcional, y maneja las funciones como uno de sus objetos mas importantes, las funciones de callback, son enviadas como parametros a otras funciones, para ser llamadas desde dentro de las mismas
+          lo que mas me a costado entender, es el manejo que tiene javascript de las funciones, javascript es un lenguaje funcional, y maneja las funciones como uno de sus objetos mas importantes, las funciones de callback, son enviadas como parámetros a otras funciones, para ser llamadas desde dentro de las mismas
         </p>
         <p>
           voy a dar un ejemplo simple de callback para que se entienda bien su funcionamiento:
@@ -63,13 +63,13 @@ suma(5,4,function(res){
           </code>
         </pre>
         <p>
-          En el codigo anterior podemos ver que declaramos la funcion suma, la cual recibe 3 parametros, los 2 valores, y callback.
-          Mas abajo vemos que llamamos a esta funcion para que realize la suma, y le pasamos una funcion declarada en la misma lista de parametros, la cual recibe un valor en "res" y lo imprime en consola.
-          Entonces, que sucede? bien, dentro de suma realizamos la suma y le pasamos el resultado a callback, que es la funcion que le pasamos como parametro, la cual es llamada y imprime lindo y bonito el resultado.       
+          En el código anterior podemos ver que declaramos la función suma, la cual recibe 3 parámetros, los 2 valores, y callback.
+          Mas abajo vemos que llamamos a esta función para que realice la suma, y le pasamos una función declarada en la misma lista de parámetros, la cual recibe un valor en "res" y lo imprime en consola.
+          Entonces, que sucede? bien, dentro de suma realizamos la suma y le pasamos el resultado a callback, que es la función que le pasamos como parámetro, la cual es llamada y imprime lindo y bonito el resultado.       
         </p>
         
         <h3>NPM</h3>
-        <p>Node consta con un instalador de paquetes, el cual te permite installarlos de manera local en tu proyecto:</p>
+        <p>Node consta con un instalador de paquetes, el cual te permite instalarlos de manera local en tu proyecto:</p>
         <pre><code>
 npm install express
         </code></pre>
@@ -77,34 +77,34 @@ npm install express
         <pre><code>
 npm install -g express
         </code></pre>
-        <p>de que me sirve una o la otra? bueno, algunos paquetes como el del ejemplo traen funciones que pueden ser llamadas al instalarlos de manera global, en el ejemplo, express puede ser llamado para crear una estructura basica de tu sitio, de esta manera</p>
+        <p>de que me sirve una o la otra? bueno, algunos paquetes como el del ejemplo traen funciones que pueden ser llamadas al instalarlos de manera global, en el ejemplo, express puede ser llamado para crear una estructura básica de tu sitio, de esta manera</p>
         <pre><code>
 express MiSitio -s -c stylus
         </code></pre>
-        <p>en este ejemplo estamos creando un proyecto llamado MiSitio, este comando recibe parametros tambien, -s le dice que configure express para utilizar sesiones, y -c le dice que vamos a utilizar el motor stylus para el codigo css</p>
-        <p>esto nos genera la configuracion basica para tener corriendo un proyecto en express, como el package.json, algunas vistas y tambien rutas</p>
+        <p>en este ejemplo estamos creando un proyecto llamado MiSitio, este comando recibe parámetros también, -s le dice que configure express para utilizar sesiones, y -c le dice que vamos a utilizar el motor stylus para el código css</p>
+        <p>esto nos genera la configuración básica para tener corriendo un proyecto en express, como el package.json, algunas vistas y también rutas</p>
         
         <h3 id="SocketIo">Socket.io</h3>
         <h4>Que es socket.io?</h4>
-        <p>Socket.io es una libreria que apunta a crear aplicaciones realtime sin tener que preocuparte por el mecanismo de transporte de datos, o de el dispositivo final donde se corra tu aplicacion</p>
+        <p>Socket.io es una librería que apunta a crear aplicaciones realtime sin tener que preocuparte por el mecanismo de transporte de datos, o de el dispositivo final donde se corra tu aplicación</p>
         <h4>Todo muy lindo pero... mecanismos de transporte?</h4>
-        <p>El mecanismo de transporte es el metodo por el que se envian los datos, si tenes el ultimo chrome seguro tendras habilitado websockets, pero y si tu servidor no soporta websockets?, o en el caso que tengas un internet explorer 6, y un servidor que si soporte websockets, no podras utilizarlo?</p>
-        <p>Aqui es donde entra socket.io, el verifica todo esto por su cuenta y decide cual es el mejor modo de transporte habilitado, si tenes un navegador que soporte websockets, usara websocket, sino, utilizara pooling, y dadas las circunstancias de que no este ninguno habilitado, insertara en tu pagina un swf (si, flash) y utilizara las funciones de flash para que todos puedan utilizar tu aplicacion!</p>
+        <p>El mecanismo de transporte es el método por el que se envían los datos, si tenes el ultimo chrome seguro tendrás habilitado websockets, pero y si tu servidor no soporta websockets?, o en el caso que tengas un internet explorer 6, y un servidor que si soporte websockets, no podrás utilizarlo?</p>
+        <p>Aqui es donde entra socket.io, el verifica todo esto por su cuenta y decide cual es el mejor modo de transporte habilitado, si tenes un navegador que soporte websockets, usara websocket, sino, utilizara pooling, y dadas las circunstancias de que no este ninguno habilitado, insertara en tu pagina un swf (si, flash) y utilizara las funciones de flash para que todos puedan utilizar tu aplicación!</p>
         <h4>Y esto en que me afecta a mi?</h4>
-        <p>Pues facil, esto significa que tu aplicacion funcionara en cualquier dispositivo, con cualquier conexion y en cualquier circunstancia!</p>
+        <p>Pues fácil, esto significa que tu aplicación funcionara en cualquier dispositivo, con cualquier conexión y en cualquier circunstancia!</p>
         <h4>HeartBeats, timeouts etc.</h4>
-        <p>una coneccion que no a recibido datos se cierra luego de haber pasado un tiempo, esto se conoce como timeout, entonces, que sucede si no e recibido datos en un buen tiempo a traves de un socket? facil! socket.io manda un heartbeat (literalmente significa latido de corazon) antes que termine el tiempo de timeout para informarle al servidor que seguimos vivos, gracias a esto la conexion sigue siempre activa, <b>esto lo hace solito socket.io</b> pero es bueno saberlo =)</p>
+        <p>una conexión que no a recibido datos se cierra luego de haber pasado un tiempo, esto se conoce como timeout, entonces, que sucede si no e recibido datos en un buen tiempo a través de un socket? fácil! socket.io manda un heartbeat (literalmente significa latido de corazon) antes que termine el tiempo de timeout para informarle al servidor que seguimos vivos, gracias a esto la conexión sigue siempre activa, <b>esto lo hace solito socket.io</b> pero es bueno saberlo =)</p>
         
-        <h3>Agregando sockets a nuestra aplicacion!</h3>
-        <p>por fin la parte divertida! continuando la version que nos dejo nuestro amigo @antonioPol <a href="https://github.com/theHazzard/nodejsAndSockets/tree/v1.0" class="user-mention">v1.0</a> primero hay que instalar la libreria de sockets en nuestro proyecto, esto se puede realizar con el siguiente comando.</p>
+        <h3>Agregando sockets a nuestra aplicación!</h3>
+        <p>por fin la parte divertida! continuando la versión que nos dejo nuestro amigo @antonioPol <a href="https://github.com/theHazzard/nodejsAndSockets/tree/v1.0" class="user-mention">v1.0</a> primero hay que instalar la librería de sockets en nuestro proyecto, esto se puede realizar con el siguiente comando.</p>
         <pre><code>
 npm install socket.io
         </code></pre>
-        <p>ahora bien, una buena practica aqui, sobre todo si luego pensamos hacer un deployment a heroku o a nodejitsu es agregar el paquete al archivo packages.json, pero como yo soy perezoso, hay un comando para mi!</p>
+        <p>ahora bien, una buena practica aquí, sobre todo si luego pensamos hacer un deployment a heroku o a nodejitsu es agregar el paquete al archivo packages.json, pero como yo soy perezoso, hay un comando para mi!</p>
         <pre><code>
 npm install socket.io --save          
         </code></pre>
-        <p>esto hace que se instale nuestro paquete o libreria, y ademas se agregue automaticamente al archivo packages.json, quedando de esta manera.</p>
+        <p>esto hace que se instale nuestro paquete o librería, y ademas se agregue automáticamente al archivo packages.json, quedando de esta manera.</p>
         <pre><code>
 "dependencies": {
   "express": "3.0.6",
@@ -112,7 +112,7 @@ npm install socket.io --save
   "socket.io": "~0.9.13"
 }          
         </code></pre>
-        <p>ahora bien, desde aqui podemos continuar! para ello necesitamos, en el archivo app.js, agregar la libreria.</p>
+        <p>ahora bien, desde aquí podemos continuar! para ello necesitamos, en el archivo app.js, agregar la librería.</p>
         <pre><code>
 var express = require('express')
   , routes = require('./routes')
@@ -135,13 +135,13 @@ var express = require('express')
         <br>
         <code>app = express()</code>
         <br>
-        <p>esto estaba ya hecho mas abajo, pero es necesario hacerlo antes de declarar nuestra variable http, ya que ahora es necesario alimentar esta variable con nuestra instancia de express <br>ahora en la linea de abajo le agregamos el metodo createServer y le pasamos nuestra instancia de express. (en app)</p>
+        <p>esto estaba ya hecho mas abajo, pero es necesario hacerlo antes de declarar nuestra variable http, ya que ahora es necesario alimentar esta variable con nuestra instancia de express <br>ahora en la linea de abajo le agregamos el método createServer y le pasamos nuestra instancia de express. (en app)</p>
         <br>
         <p>ahora tenemos, debajo de <code>http</code> la variable <code>io</code></p>
         <code>io = require('socket.io')</code>
-        <p>que hace esto? trae las funciones de la libreria a la variable <code>io!</code>, pues bien, ya tenemos en nuestra app las funciones de sockets.
+        <p>que hace esto? trae las funciones de la librería a la variable <code>io!</code>, pues bien, ya tenemos en nuestra app las funciones de sockets.
         <br>pero esto no es todo!.
-        <br>ahora hay que decirle a nuestra libreria que escuche por nuestro servidor http, como lo estamos haciendo en la linea de abajo</p>
+        <br>ahora hay que decirle a nuestra librería que escuche por nuestro servidor http, como lo estamos haciendo en la linea de abajo</p>
         <code>io = io.listen(http)</code>
         <p>y listo, ahora en io, tenemos a nuestro socket escuchando en http</p>
         <p>solo nos queda decir que en el final, donde antes estaba escuchando nuestra instancia de http, hay que modificarlo de la siguiente manera</p>
@@ -152,18 +152,18 @@ http.listen(app.get('port'), function(){
         </code></pre>
         <p>esto se debe a que arriba ya estamos haciendo la parte de <code>.createServer</code><br><a href="https://github.com/theHazzard/nodejsAndSockets/tree/7ed0e0dff943890914de6c1369ea5e3d9000ea4d">Commit con los cambios explicados</a></p>
         
-        <h3>Reciviendo los sockets conectados</h3>
+        <h3>Recibiendo los sockets conectados</h3>
         <h4 id='socketServer'>En el server...</h4>
         <pre><code>
 io.sockets.on('connection',function (socket){
   socket.emit('mensaje','bienvenidos!')
 })          
         </code></pre>
-        <p>que estamos haciendo con esto? bueno, <code>io</code> es nuestra instancia de socket.io a la escucha de conexiones, ahora estamos agregando a los sockets un manejador del evento connection, osea, que cuando haya una conexion, ejecute la funcion que le estamos pasando, recuerdan lo de las <a href="#CallBack">funciones callback?</a>, bueno, aqui estamos haciendo uso de ellas, con esto le estamos diciendo "on connection do this", o "al haber una conexion hace esto" donde "esto" es la <b>funcion</b></p>
-        <p>la funcion callback que le estamos pasando recibe como parametro el socket que se conecto, este a diferencia de io.sockets(que son todos los sockets) es una conexion individual, osea un usuario unico, o una conexion unica a dicho usuario.</p>
-        <p>luego donde hacemos <code>socket.emit('evento','mensaje')</code> le estamos diciendo que a este socket unico e individual le mandemos el evento mensaje, con el mensaje bienvenidos!</p>
+        <p>que estamos haciendo con esto? bueno, <code>io</code> es nuestra instancia de socket.io a la escucha de conexiones, ahora estamos agregando a los sockets un manejador del evento connection, osea, que cuando haya una conexion, ejecute la función que le estamos pasando, recuerdan lo de las <a href="#CallBack">funciones callback?</a>, bueno, aquí estamos haciendo uso de ellas, con esto le estamos diciendo "on connection do this", o "al haber una conexión hace esto" donde "esto" es la <b>función</b></p>
+        <p>la función callback que le estamos pasando recibe como parámetro el socket que se conecto, este a diferencia de io.sockets(que son todos los sockets) es una conexión individual, osea un usuario único, o una conexión única a dicho usuario.</p>
+        <p>luego donde hacemos <code>socket.emit('evento','mensaje')</code> le estamos diciendo que a este socket único e individual le mandemos el evento mensaje, con el mensaje bienvenidos!</p>
         <h4>Del lado del cliente...</h4>
-        <p>Para que podamos recivir estos datos, en el lado del cliente hay que configurar la conexion, para ello voy a crear un archivo js con las conexiones y en si, todo mi javascript, el mismo quedaria mas o menos asi</p>
+        <p>Para que podamos recibir estos datos, en el lado del cliente hay que configurar la conexión, para ello voy a crear un archivo js con las conexiones y en si, todo mi javascript, el mismo quedaría mas o menos asi</p>
         <pre>
           <code>
 $(document).on('ready',function(){
@@ -173,22 +173,22 @@ $(document).on('ready',function(){
   })
 });</code>
         </pre>
-        <p>como podemos apreciar, tambien hago uso de jquery (por el simbolito <code>$</code>)
+        <p>como podemos apreciar, también hago uso de jquery (por el simbolito <code>$</code>)
         <br>
-        creo la variable socket, donde creo la coneccion al servidor on la variable io (ahora les voy a mostrar donde esta declarada)
+        creo la variable socket, donde creo la conexión al servidor on la variable io (ahora les voy a mostrar donde esta declarada)
         <br>
-        ahora abajo le digo, <code>socket.on('mensaje',function...);</code> esto significa, que cuando el socket reciba el evento <code>'mensaje'</code>, ejecute la funcion callback que le pasamos como parametro, que lo que hace es recibir el mensaje enviado por el servidor en la variable mensaje que recibe como parametro (recuerdan el <a href="#socketServer">Paso anterior?</a> donde le deciamos que envie el mensaje bienvenidos?, bueno, esta es la funcion que lo recibe, y lo muestra en un alert!</p>
+        ahora abajo le digo, <code>socket.on('mensaje',function...);</code> esto significa, que cuando el socket reciba el evento <code>'mensaje'</code>, ejecute la función callback que le pasamos como parámetro, que lo que hace es recibir el mensaje enviado por el servidor en la variable mensaje que recibe como parámetro (recuerdan el <a href="#socketServer">Paso anterior?</a> donde le decíamos que envíe el mensaje bienvenidos?, bueno, esta es la función que lo recibe, y lo muestra en un alert!</p>
         <b><p>El archivo lo nombre <code>skt.js</code> y lo guarde en <code>public</code></p></b>
         <h4>Configurando el html mostrado al usuario...</h4>
-        <p>ahora, como proveo al usuario con este js?, en el archivo <code>layout.jade</code> el cual es quien henera el <code>head</code> de las paginas mostradas incluimos esto</p>
+        <p>ahora, como proveo al usuario con este js?, en el archivo <code>layout.jade</code> el cual es quien genera el <code>head</code> de las paginas mostradas incluimos esto</p>
         <pre>
           <code>
 script(src='skt.js')            
           </code>
         </pre>
-        <p>no hace falta agregarle mas nada el path del <code>src</code> por que ya configuramos en express cual va a ser nuestro directorio publico, asi que todo lo que no este en las rutas lo va a buscar ahi
+        <p>no hace falta agregarle mas nada el path del <code>src</code> por que ya configuramos en express cual va a ser nuestro directorio publico, así que todo lo que no este en las rutas lo va a buscar ahí
         <br>
-        pero nos estan faltando otras cosas!, yo dije clarito que estoy usando Jquery en el selector, asi que arriba de la linea agregada tenemos que agregar jquery, lo vamos a hacer desde google, asi no alojamos en nuestra pagina el js =P
+        pero nos están faltando otras cosas!, yo dije clarito que estoy usando Jquery en el selector, así que arriba de la linea agregada tenemos que agregar jquery, lo vamos a hacer desde google, así no alojamos en nuestra pagina el js =P
         </p>
         <pre>
           <code>
@@ -196,14 +196,14 @@ script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js')
           </code>
         </pre>
         <p>
-          tambien, como estamos haciendo uso de <code>io.connect()</code> en algun lado debemos traer la libreria de socket.io para el cliente, lo hacemos con esta linea, que debemos agregar antes de nuestro archivo <code>js</code> que creamos.
+          también, como estamos haciendo uso de <code>io.connect()</code> en algún lado debemos traer la librería de socket.io para el cliente, lo hacemos con esta linea, que debemos agregar antes de nuestro archivo <code>js</code> que creamos.
         </p>
         <pre>
           <code>
 script(src='/socket.io/socket.io.js')            
           </code>
         </pre>
-        <p>ahora, de donde esta sacando este js? si en nuestra carpeta public no esta, ni tampoco tenemos una carpeta socket.io?, bueno, esta parte la interpreta socket.io, y le pasa el js automaticamente! asi que con esto ya estamos con el <a href="https://github.com/theHazzard/nodejsAndSockets/blob/d98b3fb4943063a914995d0ab7e564aec67f4c32/views/layout.jade">layout.jade</a></p>
+        <p>ahora, de donde esta sacando este js? si en nuestra carpeta public no esta, ni tampoco tenemos una carpeta socket.io?, bueno, esta parte la interpreta socket.io, y le pasa el js automáticamente! así que con esto ya estamos con el <a href="https://github.com/theHazzard/nodejsAndSockets/blob/d98b3fb4943063a914995d0ab7e564aec67f4c32/views/layout.jade">layout.jade</a></p>
         <h4>Autentificando los sockets</h4>
         <p>Para asegurarnos que solo nuestros usuarios se van a conectar como sockets, vamos a autentificar las conexiones, para ello debemos configurar socket.io</p>
         <p>Esto lo hacemos agregando debajo de nuestras variables la siguientes lineas</p>
@@ -212,8 +212,8 @@ io.configure(function (){
   io.set('authorization', function (handshakeData, callback) {})
 });          
         </code></pre>
-        <p>Ahi le estamos diciendo que se ejecute la funcion que le estoy pasando cuando se haga la autorizacion del socket, por defecto autoriza todas, pero ahora debera pasar por mi funcion antes de autorizar.</p>
-        <p>Para ello, voy a ver dentro de las sesiones si la conexion que esta entrando esta logeada, osea, deberia tener creada session.user
+        <p>Ahi le estamos diciendo que se ejecute la función que le estoy pasando cuando se haga la autorización del socket, por defecto autoriza todas, pero ahora deberá pasar por mi función antes de autorizar.</p>
+        <p>Para ello, voy a ver dentro de las sesiones si la conexión que esta entrando esta logeada, osea, debería tener creada session.user
         <br>
         las sesiones por defecto en node.js se guardan en una MemoryStore, osea, en memoria, para poder entrar a esta MemoryStore, debemos crearla donde declaramos nuestras variables, de la siguiente manera</p>
         <pre><code>
@@ -224,17 +224,17 @@ var MemoryStore = express.session.MemoryStore;
         <pre><code>
 var sessionStore = new MemoryStore()          
         </code></pre>
-        <p>ya que estamos en esta parte, vamos a declarar 2 variables mas que vamos a necesitar en el transcurso de nuestra autorizacion</p>
+        <p>ya que estamos en esta parte, vamos a declarar 2 variables mas que vamos a necesitar en el transcurso de nuestra autorización</p>
         <pre><code>
 var parseCookie = require('express/node_modules/connect').utils.parseSignedCookies          
         </code></pre>
-        <p>parseCookie es una funcion que parsea nuestras cookies que estan encriptadas, osea, le pasamos nuestra "frase secreta" y desencripta nuestra cookie</p>
+        <p>parseCookie es una función que parsea nuestras cookies que están encriptadas, osea, le pasamos nuestra "frase secreta" y desencripta nuestra cookie</p>
         <pre><code>
 var cookie = require('express/node_modules/cookie')          
         </code></pre>
         <p>cookie tiene funciones que vamos a utilizar con nuestras cookies</p>
         <h4>Autorizando!</h4>
-        <p>para ello debemos leer las cookies que vienen en nuestros datos de handshake (los datos de handshake o "apreton de manos" se generan al establecerse la conexion del socket) el mismo tiene la siguiente estructura</p>
+        <p>para ello debemos leer las cookies que vienen en nuestros datos de handshake (los datos de handshake o "apretón de manos" se generan al establecerse la conexión del socket) el mismo tiene la siguiente estructura</p>
         <pre><code>
 {
    headers: req.headers      
@@ -247,27 +247,27 @@ var cookie = require('express/node_modules/cookie')
  , query: data.query          
 }          
         </code></pre>
-        <p>Entonces, como nuestra funcion recibe los datos de handshake con el nombre <code>handshakeData</code> las cookies se encuentran dentro de <code>handshakeData.headers.cookie</code></p>
+        <p>Entonces, como nuestra función recibe los datos de handshake con el nombre <code>handshakeData</code> las cookies se encuentran dentro de <code>handshakeData.headers.cookie</code></p>
         <p>Como nuestras cookies van codificadas al usuario, necesitamos decodificarlas, lo hacemos de la siguiente manera.</p>
         <pre><code>
 if (handshakeData.headers.cookie){
   handshakeData.cookie = parseCookie(cookie.parse(handshakeData.headers.cookie),'M1Supp3RS3cr3TP@SsW0Rd');
 };          
         </code></pre>
-        <p>si existe la cookie, guarda dentro de nuestro handshake la cookie decodificada con parseCookie, dentro de parseCookie le pasamos nuestra cookie parseada como primer parametro (hecho con cookie.parse) y como segundo parametro nuestra frase secreta, la que le pasamos en la configuracion de node.js</p>
-        <p>luego guardamos nuestro id de session en nuestro objeto <code>handshakeData</code> al que ahora gracias a parsearlo, podemos acceder de la siguiente manera:</p>
+        <p>si existe la cookie, guarda dentro de nuestro handshake la cookie decodificada con parseCookie, dentro de parseCookie le pasamos nuestra cookie parseada como primer parámetro (hecho con cookie.parse) y como segundo parametro nuestra frase secreta, la que le pasamos en la configuracion de node.js</p>
+        <p>luego guardamos nuestro id de sesión en nuestro objeto <code>handshakeData</code> al que ahora gracias a parsearlo, podemos acceder de la siguiente manera:</p>
         <pre><code>
 handshakeData.sessionID = handshakeData.cookie['express.sid'];          
         </code></pre>
-        <p>ahora que tenemos el id, podemos buscar la sesion en nuestro sessionStore, lo hacemos con el metodo <code>get</code></p>
+        <p>ahora que tenemos el id, podemos buscar la sesión en nuestro sessionStore, lo hacemos con el método <code>get</code></p>
         <pre><code>
 sessionStore.get(handshakeData.sessionID, function (err, session){});                  
         </code></pre>
-        <p>Como ven, recive como primer parametro el id por el que voy a buscar, y como segundo una funcion callback, la misma recibe como primer parametro el error, y el segundo la sesion que obtuvo al hacer el <code>get</code> con el id</p>
-        <p>dentro de esta funcion, si no pudo obtener la sesion completa la variable err, sino, me completa la variable session con la sesion del usuario, ahora vamos a corroborar que este logeado de la siguiente manera <br>
+        <p>Como ven, recibe como primer parámetro el id por el que voy a buscar, y como segundo una función callback, la misma recibe como primer parámetro el error, y el segundo la sesión que obtuvo al hacer el <code>get</code> con el id</p>
+        <p>dentro de esta función, si no pudo obtener la sesión completa la variable err, sino, me completa la variable session con la sesión del usuario, ahora vamos a corroborar que este logeado de la siguiente manera <br>
         ahora, en handshakeData.session estamos guardando una copia de la session, para acceder a los datos del usuario</p>
         <pre><code>
-if (err){ callback('fallo la obtencion de sesion!',false) };
+if (err){ callback('fallo la obtención de sesion!',false) };
 if (session){
   if (session.usuario){
     handshakeData.session = session;
@@ -277,7 +277,7 @@ if (session){
   }
 }          
         </code></pre>
-        <p><code>callback</code> es una funcion que nos pasa socket.io para poder continuar con la autenticacion de nuestro socket, a ella la llamamos con el error primero, y el valor de lo que le estemos pasando despues, en el caso de que usuario exista dentro de sesion (lo que significa que esta logeado) llamamos a la funcion <code>callback(null,true)</code> osea, el error es null, y true por que autenticamos al usuario, caso contrario, le pasamos como error <b>'el usuario no esta logeado'</b> y false, ya que no permitimos que se conecte el socket</p>
+        <p><code>callback</code> es una función que nos pasa socket.io para poder continuar con la autenticacion de nuestro socket, a ella la llamamos con el error primero, y el valor de lo que le estemos pasando después, en el caso de que usuario exista dentro de sesión (lo que significa que esta logeado) llamamos a la función <code>callback(null,true)</code> osea, el error es null, y true por que autenticamos al usuario, caso contrario, le pasamos como error <b>'el usuario no esta logeado'</b> y false, ya que no permitimos que se conecte el socket</p>
         <p>el codigo final, queda de la siguiente manera</p>
         <pre id='auth'><code>
 io.configure(function (){
@@ -308,8 +308,8 @@ io.configure(function (){
     key: 'express.sid'
   }));          
         </code></pre>
-        <p>alli como podemos observar, le estamos diciendo que el store ("repositorio" o "archivo") es <code>sessionStore</code> el mismo que utilizamos luego para buscar si el usuario esta logeado(<a href="#auth">aqui</a>)</p>
-        <p>en secret le indicamos nuestra frase con la que cifrara las sessiones, y por ultimo en key le indicamos por que archivo va a almacenar las sessiones</p>
+        <p>allí como podemos observar, le estamos diciendo que el store ("repositorio" o "archivo") es <code>sessionStore</code> el mismo que utilizamos luego para buscar si el usuario esta logeado(<a href="#auth">aquí</a>)</p>
+        <p>en secret le indicamos nuestra frase con la que cifrara las sesiones, y por ultimo en key le indicamos por que archivo va a almacenar las sesiones</p>
         <p>Quedando el archivo <a href="https://github.com/theHazzard/nodejsAndSockets/blob/619c9098e7f4386401e033489009299fcc63a2a9/app.js">de la siguiente manera</a></p>
         <h4>Agregando el chat a los views</h4>
         <p>Llego la hora de materializar el chat en las pantallas de nuestros queridos usuarios! <br>
@@ -381,7 +381,7 @@ block content
         </code></pre>
         <p>ahora que tenemos toda la visual y estructura podemos seguir</p>
         <h4>Agregando el jquery necesario para enviar los chats, y los eventos de socket.io mismos</h4>
-        <p>como vimos anteriormente, para lograr una "charla" entre nuestro server y nuestros usuarios, debemos lograr una comunicacion entre ellos usando eventos, primero voy a pegar aqui nuestro archivo <a href="https://github.com/theHazzard/nodejsAndSockets/blob/e2b8fe6970ac1122dca52cf3d878ac7ce60c36a3/public/skt.js">skt.js completo</a> y voy a explicar sus partes.(ok skt, get naked)</p>
+        <p>como vimos anteriormente, para lograr una "charla" entre nuestro server y nuestros usuarios, debemos lograr una comunicación entre ellos usando eventos, primero voy a pegar aquí nuestro archivo <a href="https://github.com/theHazzard/nodejsAndSockets/blob/e2b8fe6970ac1122dca52cf3d878ac7ce60c36a3/public/skt.js">skt.js completo</a> y voy a explicar sus partes.(ok skt, get naked)</p>
         <pre id="codigoSockets"><code>
 var socket = io.connect('http://localhost:3000');
 $(document).on('ready',function(){
@@ -405,15 +405,15 @@ $(document).on('ready',function(){
   });
 });          
         </code></pre>
-        <p>primero establecemos la coneccion, y una ves que la pagina esta lista, verificamos los siguientes eventos.</p>
-        <p><code>nuevoUsuario</code>- el cual, al llegar un evento nuevo usuario, agrega en el chat el mensaje "se conecto el usuario NombreDeUsuario", el nombre de usuario lo recibe desde el servidor como parametro</p>
-        <p><code>nMensaje</code>- cuando llega un nuevo mensaje, agrega en el chat el mensaje que envio el usuario, este recibe un objeto con el nombre de quien envio el mensaje, y el cuerpo del mensaje</p>
-        <p><code>#chatInput</code>- aqui estamos capturando cuando se presiona una tecla dentro del input (con keypress), para que? por que queremos saber cuando el usuario da enter (<code>if e.wich = 13</code> donde 13 es enter), y asi emitimos el evento <code>mensaje</code> y le pasamos como parametro ese texto al server, para que lo reparta a los demas usuarios!
+        <p>primero establecemos la conexión, y una ves que la pagina esta lista, verificamos los siguientes eventos.</p>
+        <p><code>nuevoUsuario</code>- el cual, al llegar un evento nuevo usuario, agrega en el chat el mensaje "se conecto el usuario NombreDeUsuario", el nombre de usuario lo recibe desde el servidor como parámetro</p>
+        <p><code>nMensaje</code>- cuando llega un nuevo mensaje, agrega en el chat el mensaje que envió el usuario, este recibe un objeto con el nombre de quien envió el mensaje, y el cuerpo del mensaje</p>
+        <p><code>#chatInput</code>- aquí estamos capturando cuando se presiona una tecla dentro del input (con keypress), para que? por que queremos saber cuando el usuario da enter (<code>if e.wich = 13</code> donde 13 es enter), y así emitimos el evento <code>mensaje</code> y le pasamos como parámetro ese texto al server, para que lo reparta a los demás usuarios!
         <br>
         luego con <code>$('#chatInput').val("");</code> vaciamos el input para que el user pueda seguir escribiendo nuevos mensajes! it's a cake!</p>
         <h4>ahora, recibiendo y enviando eventos desde el server</h4>
-        <p>bien, como vimos en el codigo anterior, skt.js recibe los eventos <code>nuevoUsuario</code> y <code>nMensaje</code>, para que esto pase lo debemos enviar desde el servidor, asi como tambien recibir el evento <code>mensaje</code> desde el mismo asi repartimos el mensaje a los otros usuarios!</p>
-        <p>veamos un poco el codigo de app.js para recibir los eventos</p>
+        <p>bien, como vimos en el código anterior, skt.js recibe los eventos <code>nuevoUsuario</code> y <code>nMensaje</code>, para que esto pase lo debemos enviar desde el servidor, así como también recibir el evento <code>mensaje</code> desde el mismo así repartimos el mensaje a los otros usuarios!</p>
+        <p>veamos un poco el código de app.js para recibir los eventos</p>
         <pre><code>
 io.sockets.on('connection',function (socket){
   socket.broadcast.emit('nuevoUsuario',socket.handshake.session.usuario);
@@ -422,42 +422,42 @@ io.sockets.on('connection',function (socket){
   })
 })          
         </code></pre>
-        <p>como pueden ver es muy simple, cuando nuestro server recibe una conexion, envia a todos los usuarios conectados menos el que inicio sesion (esto se logra con <code>socket.broadcast.emit</code>), el nombre del nuevo usuario (que como recordamos en skt.js tomamos este evento y escribimos en la pantalla el usuario conectado)<br>
-        luego al recibir un mensaje nuevo (el que emitiamos en <a href="#codigoSockets">#chatInput</a> de skt.js) y lo emitimos a todos los usuarios, incluyendo al que lo envio (esto lo hacemos con <code>io.sockets.emit</code>)</p>
+        <p>como pueden ver es muy simple, cuando nuestro server recibe una conexión, envía a todos los usuarios conectados menos el que inicio sesión (esto se logra con <code>socket.broadcast.emit</code>), el nombre del nuevo usuario (que como recordamos en skt.js tomamos este evento y escribimos en la pantalla el usuario conectado)<br>
+        luego al recibir un mensaje nuevo (el que emitíamos en <a href="#codigoSockets">#chatInput</a> de skt.js) y lo emitimos a todos los usuarios, incluyendo al que lo envió (esto lo hacemos con <code>io.sockets.emit</code>)</p>
         <p>LISTO, esto es todo, ya tenemos un chat andando! FELICIDADES!! =) ahora a seguir con passport.js </p>
         <h3 id="passortjs">Manejando nuestros logins con PassportJS</h3>
         <p>En primer lugar, hay que instalar los modulos de passport para ello:</p>
-        <p><code>npm install passport --save</code> con esto estamos instalando las funciones principales de passport, ahora, para cada login (ya sea local, por twitter o por facebook) hay una estrategia de conexion, estas se descargan con los siguientes codigos</p>
-        <p><code>npm install passport-facebook</code> para la estrategia de conexion con facebook</p>
-        <p><code>npm install passport-twitter</code> obviamente para la estrategia de conexion con twitter</p>
+        <p><code>npm install passport --save</code> con esto estamos instalando las funciones principales de passport, ahora, para cada login (ya sea local, por twitter o por facebook) hay una estrategia de conexión, estas se descargan con los siguientes códigos</p>
+        <p><code>npm install passport-facebook --save</code> para la estrategia de conexión con facebook</p>
+        <p><code>npm install passport-twitter --save</code> obviamente para la estrategia de conexión con twitter</p>
         <h4>Creando aplicaciones en twitter y facebook</h4>
-        <p>para que twtitter o facebook nos dejen utilizar sus funciones, debemos tener codigos o tokens de autenticacion, estas se obtienen al crear aplicaciones en las respectivas paginas, vamos por partes, para crear una aplicacion debemos hacer lo siguiente...</p>
+        <p>para que twtitter o facebook nos dejen utilizar sus funciones, debemos tener códigos o tokens de autenticacion, estas se obtienen al crear aplicaciones en las respectivas paginas, vamos por partes, para crear una aplicación debemos hacer lo siguiente...</p>
         <h4>Aplicaciones en facebook</h4>
-        <p>primero debemos entrar a la pagina de <a href="https://developers.facebook.com/apps">Facebook developers</a> y hacer click en <b>crear nueva aplicacion</b>
+        <p>primero debemos entrar a la pagina de <a href="https://developers.facebook.com/apps">Facebook developers</a> y hacer click en <b>crear nueva aplicación</b>
         <br>
         <img src="http://img339.imageshack.us/img339/8135/fbpaso1.png" alt="">
         <br>
-        Luego debemos completar el nombre de la aplicacion y hacer click en continuar.
+        Luego debemos completar el nombre de la aplicación y hacer click en continuar.
         <br>
         <img src="http://img834.imageshack.us/img834/3821/fbpaso2.png" alt="">
         <br>
-        Una ves que hayamos hecho esto, debemos completar el <b>app domains</b> como vemos en esta imagen le puse <b>localhost</b>, luego hay que marcar <b>Sitio web con Facebook Login</b> y completar el <b>URL del sitio</b> con nuestro sitio web donde vamos a utilizar el login con facebook, tiene que ser un dominio dentro de nuestros <b>app domains</b> ya que si utilizamos otra web, que no sea la de <b>URL del sitio</b> facebook no nos permitira logear, esto es algo que no sucede con Twitter por ejemplo, en facebook son mas estrictos
+        Una ves que hayamos hecho esto, debemos completar el <b>app domains</b> como vemos en esta imagen le puse <b>localhost</b>, luego hay que marcar <b>Sitio web con Facebook Login</b> y completar el <b>URL del sitio</b> con nuestro sitio web donde vamos a utilizar el login con facebook, tiene que ser un dominio dentro de nuestros <b>app domains</b> ya que si utilizamos otra web, que no sea la de <b>URL del sitio</b> facebook no nos permitirá logear, esto es algo que no sucede con Twitter por ejemplo, en facebook son mas estrictos
         <br>
         <img src="http://img189.imageshack.us/img189/6647/fbpaso3.png" alt="">
         <br>
         lo que vamos a necesitar de los datos que se ven en el paso 3, son el appId y el app secret
         <br>
-        si queres leer cosas como los mensajes del usuario, o si muro o timeline, las paginas a las que le hizo me gusta, tenes que darle los permisos a tu aplicacion en la seccion de <b>permisos</b>, luego al usuario entrar en tu aplicacion al usuario le aparecera si le quiere dar esos permisos a tu aplicacion, pero esto va mas alla de lo que se va a explicar en este curso, aqui solo necesitamos los permisos por defecto</p>
+        si queres leer cosas como los mensajes del usuario, o si muro o timeline, las paginas a las que le hizo me gusta, tenes que darle los permisos a tu aplicación en la sección de <b>permisos</b>, luego al usuario entrar en tu aplicación al usuario le aparecerá si le quiere dar esos permisos a tu aplicación, pero esto va mas allá de lo que se va a explicar en este curso, aquí solo necesitamos los permisos por defecto</p>
         <h4>Aplicaciones en twitter</h4>
-        <p>para poder crear una aplicacion en twitter primero hay que logearse en la pagina de <a href="https://dev.twitter.com/">Twitter Developers</a>, ahi hay que hacer click en tuUsuarioTwitter->My applications</p>
+        <p>para poder crear una aplicación en twitter primero hay que logearse en la pagina de <a href="https://dev.twitter.com/">Twitter Developers</a>, ahí hay que hacer click en tuUsuarioTwitter->My applications</p>
         <img src="http://img571.imageshack.us/img571/231/twpaso1.png" alt="">
-        <p>Una ves ahi, hay que hacer click en <b>Create a new application</b></p>
+        <p>Una ves ahí, hay que hacer click en <b>Create a new application</b></p>
         <img src="http://img405.imageshack.us/img405/2195/twpaso2.png" alt="">
-        <p>una ves hecho esto, hay que completar los datos basicos de tu aplicacion, como el <b>nombre</b> la <b>descripcion</b> y el <b>sitio web</b> de la misma, como lo hice en la siguiente imagen</p>
+        <p>una ves hecho esto, hay que completar los datos básicos de tu aplicación, como el <b>nombre</b> la <b>descripción</b> y el <b>sitio web</b> de la misma, como lo hice en la siguiente imagen</p>
         <img src="http://img717.imageshack.us/img717/8513/twpaso3.png" alt="">
-        <p>el sitio web puede ser cualquiera, al dia de hoy (en el momento en el que escribo este tutorial) no es necesario que sea la misma pagina en la que tenes el login de twitter, no es tan estricto como facebook, pero seria bueno que fuera la misma</p>
-        <p>luego de esto <b>aceptamos las Developer Rules Of The Road</b> marcando el checkbox que dice <b>yes, I agree</b>, <b>completamos el captcha</b> y luego presionamos el boton que dice <b>Create your twitter application</b></p>
-        <p>cuando hayamos finalizado esto, nos llevara a una pagina como la siguiente, alli vamos a tomar nota de el <b>Consumer key</b> y de el <b>Consumer secret</b>, los vamos a necesitar luego al momento de hacer el login</p>
+        <p>el sitio web puede ser cualquiera, al día de hoy (en el momento en el que escribo este tutorial) no es necesario que sea la misma pagina en la que tenes el login de twitter, no es tan estricto como facebook, pero seria bueno que fuera la misma</p>
+        <p>luego de esto <b>aceptamos las Developer Rules Of The Road</b> marcando el checkbox que dice <b>yes, I agree</b>, <b>completamos el captcha</b> y luego presionamos el botón que dice <b>Create your twitter application</b></p>
+        <p>cuando hayamos finalizado esto, nos llevara a una pagina como la siguiente, allí vamos a tomar nota de el <b>Consumer key</b> y de el <b>Consumer secret</b>, los vamos a necesitar luego al momento de hacer el login</p>
         <img src="http://img59.imageshack.us/img59/1143/twpaso4.png" alt="">
       </section>
       <footer>
