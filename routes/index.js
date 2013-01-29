@@ -3,7 +3,7 @@
  * GET home page.
  */
 //variable que recogerá todos los usuarios que estan "conectados"
-var usuarios=[];
+
 
 exports.index = function(req, res){
 	//si existe el usuario lo redirecciona a la pagina del chat
@@ -55,8 +55,9 @@ exports.errorUsuario = function(req, res){
 };
 
 exports.chat = function(req, res){
-  //si no tiene sesion le vuelve a a la página de inicio
-  if(!req.session.usuario)
+  //si no tiene sesion le vuelve a a la página de iniciou
+  console.log(req.user);
+  if(!req.user)
   {
   	res.redirect('/');
   }else{

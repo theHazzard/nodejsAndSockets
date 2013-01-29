@@ -17,8 +17,22 @@ var express = require('express')
   , path = require('path')
   , passport = require('passport')
   , TwitterStrategy = require('passport-twitter').Strategy
-  , FacebookStrategy = require('passport-facebook').Strategy;
+  , FacebookStrategy = require('passport-facebook').Strategy
+  , usuarios={};
 
+
+passport.serializeUser(function(user, done) {
+  console.log('serializar: '+ JSON.stringify(user));
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {  
+   if (usuarios[id])
+    {
+      console.log('deserializar: '+ JSON.stringify(usuarios[id]));
+      done(null,usuarios[id]);
+    }  
+});
 
 passport.use(new FacebookStrategy({
     clientID: 438087309593727,
@@ -26,10 +40,17 @@ passport.use(new FacebookStrategy({
     callbackURL: "http://localhost:3000/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate(..., function(err, user) {
-      if (err) { return done(err); }
-      done(null, user);
-    });
+    if (usuarios[profile.id])
+    {
+      done(null,usuarios[profile.id]);
+    } else {
+      usuarios[profile.id] = {
+        "id" : profile.id,
+        "red" : profile.provider,
+        "nombre" : profile.displayName
+      };
+      done(null, usuarios[profile.id]);
+    }
   }
 ));
 passport.use(new TwitterStrategy({
@@ -38,24 +59,31 @@ passport.use(new TwitterStrategy({
     callbackURL: "http://localhost:3000/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
-    User.findOrCreate(..., function(err, user) {
-      if (err) { return done(err); }
-      done(null, user);
-    });
+    if (usuarios[profile.id])
+    {
+      done(null,usuarios[profile.id]);
+    } else {
+      usuarios[profile.id] = {
+        "id" : profile.id,
+        "red" : profile.provider,
+        "nombre" : profile.displayName
+      };
+      done(null, usuarios[profile.id]);
+    }
   }
 ));
+
 io.configure(function (){
   io.set('authorization', function (handshakeData, callback) {
-    console.log(handshakeData.headers);
     if (handshakeData.headers.cookie)
     {
       handshakeData.cookie = parseCookie(cookie.parse(handshakeData.headers.cookie),'M1Supp3RS3cr3TP@SsW0Rd');
       handshakeData.sessionID = handshakeData.cookie['express.sid'];
-      console.log(handshakeData.cookie);
       sessionStore.get(handshakeData.sessionID, function (err, session) {
+        console.log('sesion: ' + JSON.stringify(session));
         if (err){ callback('fallo la obtencion de sesion!',false) };
         if (session){
-          if (session.usuario){
+          if (session.id){
             handshakeData.session = session;
             callback(null,true);
           } else {
@@ -88,6 +116,8 @@ app.configure(function(){
     secret: 'M1Supp3RS3cr3TP@SsW0Rd',
     key: 'express.sid'
   }));
+  app.use(passport.initialize());
+  app.use(passport.session());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
@@ -106,6 +136,11 @@ app.get('/chat', routes.chat);
 //salir del chat
 app.post('/salir', routes.salir);
 app.get('/users', user.list);
+
+app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook/callback', 
+  passport.authenticate('facebook', { successRedirect: '/',
+                                      failureRedirect: '/error' }));
 
 http.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
