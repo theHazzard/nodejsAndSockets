@@ -430,7 +430,7 @@ io.sockets.on('connection',function (socket){
         <p><code>npm install passport --save</code> con esto estamos instalando las funciones principales de passport, ahora, para cada login (ya sea local, por twitter o por facebook) hay una estrategia de conexión, estas se descargan con los siguientes códigos</p>
         <p><code>npm install passport-facebook --save</code> para la estrategia de conexión con facebook</p>
         <p><code>npm install passport-twitter --save</code> obviamente para la estrategia de conexión con twitter</p>
-        <h4>Creando aplicaciones en twitter y facebook</h4>
+        <h4 id="app">Creando aplicaciones en twitter y facebook</h4>
         <p>para que twtitter o facebook nos dejen utilizar sus funciones, debemos tener códigos o tokens de autenticacion, estas se obtienen al crear aplicaciones en las respectivas paginas, vamos por partes, para crear una aplicación debemos hacer lo siguiente...</p>
         <h4>Aplicaciones en facebook</h4>
         <p>primero debemos entrar a la pagina de <a href="https://developers.facebook.com/apps">Facebook developers</a> y hacer click en <b>crear nueva aplicación</b>
@@ -496,6 +496,16 @@ passport.use(new TwitterStrategy({
 ));          
         </code></pre>
         <p>Como pueden ver, estamos diciendole a passport que existen las estrategias TwitterStrategy y FacebookStrategy</p>
+        <p>En cada <code>passport.use</code> que estamos haciendo, estamos creando una nueva estrategia, tanto de <b>twitter</b> como de <b>facebook</b>, y le estamos pasando un objeto con los datos de conexion (los que obtuvimos cuando <a href="#app">creamos las aplicaciones</a>) y le suministramos una funcion que se encarga de recibir los datos que nos devuelve cada red social, como ser <b>accessToken, refreshToken, profile</b> para Facebook, o <b>token, tokenSecret, profile</b> para twitter</p>
+        <h4>el objeto profile</h4>
+        <p>el objeto profile varia entre cada estrategia de login, pero mantiene algunos campos en comun, como ser, el id en la red social (que nos serviria para identificar al usuario, ya que este es unico), el proveedor de los datos (en nuestro caso tenemos 2, facebook y twitter), displayName, o nombre para mostrar, etc. dejo link a los campos en comun en el objeto profile, o user <a href="http://passportjs.org/guide/profile/">Objeto User</a></p>
+        <h4>la funcion Done</h4>
+        <p>Como ven, en ambas estrategias, ademas de los objetos profile, y los tokens etc. se suministra una funcion llamada done, esta, definida por passport, es a la que tenemos que pasarle nuestro usuario, wait, what? si, nuestro usuario, llegado este punto, cuando es llamada la funcion en la que nos proveen del objeto profile, es por que el usuario se logeo correctamente en la red social, y nos estan pasando sus datos basicos, ahora nosotros debemos tomar de ahi los datos que vamos a utilizar</p>
+        <p>en algunos casos, si tenemos una base de datos, podemos guardar el id, y el nombre, o el mail, etc.</p>
+        <h4>Como funciona passport</h4>
+        <p>passport es inobtrusivo, osea, te da las funciones para logear, o deslogear y regisrar sessiones de un usuario, pero al final, vos sos el que elegis como buscarlo en la base de datos, que datos guardar en la session etc.</p>
+        <p>osea, passport solo te brinda las funciones, y vos haces con el usuario lo que te plazca, en este caso, nosotros vamos a guardar los datos que nos vengan en gana, en este caso el id y el nombre solamente</p>
+        <h4></h4>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/theHazzard">theHazzard</a></p>
